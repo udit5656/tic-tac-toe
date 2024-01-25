@@ -1,6 +1,7 @@
 package com.example.tic_tac_toe
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,30 +15,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Grid(rowCount:Int, colCount:Int){
+fun Grid(color: Color,onClick:()->Unit, rowCount:Int, colCount:Int){
     Column(modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
-        GridRow(elementCount = colCount)
-        GridRow(elementCount = colCount)
-        GridRow(elementCount = colCount)
+        GridRow(color,onClick,elementCount = colCount)
+        GridRow(color,onClick,elementCount = colCount)
+        GridRow(color,onClick,elementCount = colCount)
     }
 }
 
 @Composable
-fun GridRow(elementCount: Int){
+fun GridRow(color:Color,onClick: () -> Unit,elementCount: Int){
     LazyRow{
         items(elementCount){it->
-            GridCell()
+            GridCell(onClick,color)
         }
     }
 }
 
 @Composable
-fun GridCell(){
+fun GridCell(onClick: () -> Unit,color: Color){
     Box(modifier = Modifier
-        .background(color = Color.Black)
+        .background(color = color)
         .size(100.dp)
+        .clickable { onClick() }
     )
 }
 
